@@ -1,7 +1,7 @@
 //@ts-nocheck
-import {useEffect, useState} from 'react';
+import {useContext} from 'react';
+import {createContext, useEffect, useState} from 'react';
 import {gokwikConfig} from './gokwik.config';
-import {CartProvider, useCart} from '@shopify/hydrogen-react';
 
 const integrationUrls = {
   local: 'http://127.0.0.1:8080/integration.js',
@@ -10,11 +10,10 @@ const integrationUrls = {
   ndev: 'https://dev.pdp.gokwik.co/integration.js',
   qa: 'https://qa.pdp.gokwik.co/integration.js',
   qatwo: 'https://qatwo.pdp.gokwik.co/integration.js',
-  sandbox: 'https://sandbox.pdp.gokwik.co/integration.js',
+  sandbox: 'https://sandbox.pdp.gokwik.co/integration.js?v=10',
   production: 'https://pdp.gokwik.co/integration.js',
 };
 export function GokwikButton(passedData) {
-  const updatedCart = useCart();
   let buyNowRun = false;
   useEffect(() => {
     window.merchantInfo = {
@@ -280,7 +279,8 @@ export function GokwikButton(passedData) {
       window.merchantInfo.cart = cart;
       buyNowRun = true;
     } else {
-      const apiResponse = await getCart(updatedCart.id);
+      console.log('here');
+      const apiResponse = await getCart(makeid(15));
       window.merchantInfo.cart = apiResponse.data
         ? apiResponse.data.cart
         : null;
@@ -289,6 +289,18 @@ export function GokwikButton(passedData) {
     window.merchantInfo.cart &&
       window.gokwikSdk.initCheckout(window.merchantInfo);
   };
+  function makeid(length) {
+    let result = '';
+    const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+  }
   return (
     <>
       {!passedData.hideButton && (
