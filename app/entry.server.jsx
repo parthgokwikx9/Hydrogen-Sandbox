@@ -15,7 +15,21 @@ export default async function handleRequest(
   responseHeaders,
   remixContext,
 ) {
-  const {nonce, header, NonceProvider} = createContentSecurityPolicy();
+  const {nonce, header, NonceProvider} = createContentSecurityPolicy({
+    styleSrc: [
+      "'self'",
+      'https://cdn.shopify.com',
+      'https://some-custom-css.cdn',
+      'https://sandbox.pdp.gokwik.co',
+      '*',
+      'https://sandbox-plus-gokwik.myshopify.com',
+    ],
+    scriptSrc: ['*', 'https://sandbox.pdp.gokwik.co'],
+    frameSrc: ['*', 'https://sandbox.pdp.gokwik.co'],
+    defaultSrc: ['https://sandbox-plus-gokwik.myshopify.com', '*'],
+    baseUri: ['https://sandbox-plus-gokwik.myshopify.com', '*'],
+    connectSrc: ['https://sandbox-plus-gokwik.myshopify.com', '*'],
+  });
 
   const body = await renderToReadableStream(
     <NonceProvider>

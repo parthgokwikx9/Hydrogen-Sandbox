@@ -1,6 +1,7 @@
 //@ts-nocheck
 import {useContext} from 'react';
 import {createContext, useEffect, useState} from 'react';
+import {useRootLoaderData} from '~/root';
 import {gokwikConfig} from './gokwik.config';
 
 const integrationUrls = {
@@ -10,10 +11,11 @@ const integrationUrls = {
   ndev: 'https://dev.pdp.gokwik.co/integration.js',
   qa: 'https://qa.pdp.gokwik.co/integration.js',
   qatwo: 'https://qatwo.pdp.gokwik.co/integration.js',
-  sandbox: 'https://sandbox.pdp.gokwik.co/integration.js?v=10',
+  sandbox: 'https://sandbox.pdp.gokwik.co/integration.js',
   production: 'https://pdp.gokwik.co/integration.js',
 };
 export function GokwikButton(passedData) {
+  const rootData = useRootLoaderData();
   let buyNowRun = false;
   useEffect(() => {
     window.merchantInfo = {
@@ -38,38 +40,6 @@ export function GokwikButton(passedData) {
     createBuyNowCart(passedData);
   };
 
-  const addToCart = (cart) => {
-    const query = `
-        mutation addItemToCart($cartId: ID!, $lines: [CartLineInput!]!) {
-          cartLinesAdd(cartId: $cartId, lines: $lines) {
-            cart {
-              id}}}`;
-    const variables = {
-      cartId: cart.id,
-      lines: {
-        merchandiseId: cart?.lines[0]?.merchandise?.id,
-        quantity: cart?.lines[0]?.quantity,
-      },
-    };
-    gokwikStoreFrontApi(query, variables);
-  };
-  const removeFromCart = (cart) => {
-    const lineIDsToRemove = [];
-    const query = `
-        mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
-  cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
-    cart {
-     id
-    }
-
-  }
-}`;
-    const variables = {
-      cartId: cart.id,
-      lineIds: [],
-    };
-    gokwikStoreFrontApi(query, variables);
-  };
   const createBuyNowCart = (passedData) => {
     const query = `
 	mutation createCart($cartInput: CartInput) {
@@ -275,12 +245,12 @@ export function GokwikButton(passedData) {
       });
   };
   const triggerGokwikCheckout = async (cart = {}) => {
-    if (cart) {
+    if (Object.keys(cart).length) {
       window.merchantInfo.cart = cart;
       buyNowRun = true;
     } else {
-      console.log('here');
-      const apiResponse = await getCart(makeid(15));
+      const updatedCart = await rootData.cart;
+      const apiResponse = await getCart(updatedCart.id);
       window.merchantInfo.cart = apiResponse.data
         ? apiResponse.data.cart
         : null;
@@ -305,6 +275,7 @@ export function GokwikButton(passedData) {
     <>
       {!passedData.hideButton && (
         <button
+          className="gokwik-checkout"
           onClick={(event) => {
             event.preventDefault();
             passedData.buyNowButton
