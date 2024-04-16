@@ -1,7 +1,7 @@
 //@ts-nocheck
-import {CartWithActions, useCart} from '@shopify/hydrogen';
 import {useEffect, useState} from 'react';
 import {gokwikConfig} from './gokwik.config';
+import {CartProvider, useCart} from '@shopify/hydrogen-react';
 
 const integrationUrls = {
   local: 'http://127.0.0.1:8080/integration.js',
