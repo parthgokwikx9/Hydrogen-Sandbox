@@ -9,6 +9,7 @@ import {
   CartForm,
 } from '@shopify/hydrogen';
 import {getVariantUrl} from '~/lib/variants';
+import {GokwikButton} from '~/gokwik/GokwikButton';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -247,6 +248,11 @@ function ProductForm({product, selectedVariant, variants}) {
       >
         {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
       </AddToCartButton>
+      <GokwikButton
+        buyNowButton={true}
+        variantId={selectedVariant.id}
+        quantity={1}
+      />
     </div>
   );
 }
@@ -304,6 +310,8 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
           />
           <button
             type="submit"
+            className="add-to-cart"
+            name="add"
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
           >

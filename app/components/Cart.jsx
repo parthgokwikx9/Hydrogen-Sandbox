@@ -125,6 +125,9 @@ function CartCheckoutActions({checkoutUrl}) {
     <div>
       <GokwikButton />
       <br />
+      <a href="/cart" className="view-cart cart-popup">
+        View Cart
+      </a>
     </div>
   );
 }

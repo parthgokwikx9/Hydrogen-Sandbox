@@ -299,8 +299,6 @@ aside li {
   gap: 1rem;
 }
 
-
-
 /*
 * --------------------------------------------------
 * routes/__index
@@ -465,4 +463,18 @@ aside li {
 
 .account-logout {
   display: inline-block;
+}
+
+/*
+* --------------------------------------------------
+* gokwik checkout
+* --------------------------------------------------
+*/
+
+.gokwik-checkout,
+.view-cart,
+.add-to-cart {
+  width: 100%;
+  padding: 10px;
+  margin: 10px;
 }

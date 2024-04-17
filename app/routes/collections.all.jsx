@@ -21,7 +21,7 @@ export const meta = () => {
 export async function loader({request, context}) {
   const {storefront} = context;
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 8,
+    pageBy: 50,
   });
 
   const {products} = await storefront.query(CATALOG_QUERY, {
@@ -67,7 +67,7 @@ function ProductsGrid({products}) {
           <ProductItem
             key={product.id}
             product={product}
-            loading={index < 8 ? 'eager' : undefined}
+            loading={index < 50 ? 'eager' : undefined}
           />
         );
       })}
@@ -153,7 +153,7 @@ const CATALOG_QUERY = `#graphql
     $startCursor: String
     $endCursor: String
   ) @inContext(country: $country, language: $language) {
-    products(first: $first, last: $last, before: $startCursor, after: $endCursor) {
+    products(first: $first, last: $last, before: $startCursor, after: $endCursor, sortKey: TITLE) {
       nodes {
         ...ProductItem
       }
