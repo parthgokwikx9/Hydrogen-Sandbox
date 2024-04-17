@@ -33,7 +33,7 @@ function CartDetails({layout, cart}) {
       {cartHasItems && (
         <CartSummary cost={cart.cost} layout={layout}>
           <CartDiscounts discountCodes={cart.discountCodes} />
-          <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
+          <CartCheckoutActions checkoutUrl={cart.checkoutUrl} layout={layout} />
         </CartSummary>
       )}
     </div>
@@ -118,12 +118,12 @@ function CartLineItem({layout, line}) {
 /**
  * @param {{checkoutUrl: string}}
  */
-function CartCheckoutActions({checkoutUrl}) {
+function CartCheckoutActions({checkoutUrl, layout}) {
   if (!checkoutUrl) return null;
 
   return (
     <div>
-      <GokwikButton />
+      <GokwikButton layout={layout} />
       <br />
       <a href="/cart" className="view-cart cart-popup">
         View Cart

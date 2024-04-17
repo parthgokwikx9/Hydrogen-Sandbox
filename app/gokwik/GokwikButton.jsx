@@ -275,7 +275,7 @@ export function GokwikButton(passedData) {
     <>
       {!passedData.hideButton && (
         <div
-          className="gokwik-checkout"
+          className={passedData?.layout === 'page' && 'gokwik-checkout'}
           onClick={(event) => {
             event.preventDefault();
             passedData.buyNowButton
