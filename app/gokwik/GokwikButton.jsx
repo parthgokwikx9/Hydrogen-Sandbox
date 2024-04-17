@@ -274,7 +274,7 @@ export function GokwikButton(passedData) {
   return (
     <>
       {!passedData.hideButton && (
-        <button
+        <div
           className="gokwik-checkout"
           onClick={(event) => {
             event.preventDefault();
@@ -284,7 +284,7 @@ export function GokwikButton(passedData) {
           }}
         >
           {passedData.buyNowButton ? 'Gokwik Buy Now' : 'Pay via UPI/COD'}
-        </button>
+        </div>
       )}
     </>
   );
