@@ -103,7 +103,7 @@ function HeaderCtas({isLoggedIn, cart}) {
 }
 
 function HeaderMenuMobileToggle() {
-  if (screen.width > 600) return <div></div>;
+  // if (screen.width > 600) return <div></div>;
   return (
     <a className="header-menu-mobile-toggle" href="#mobile-menu-aside">
       <h3>☰</h3>
