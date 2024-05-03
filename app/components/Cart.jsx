@@ -189,14 +189,21 @@ function CartLineQuantity({line}) {
     <div className="cart-line-quantity">
       <small>Quantity: {quantity} &nbsp;&nbsp;</small>
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
-        <button
-          aria-label="Decrease quantity"
-          disabled={quantity <= 1}
-          name="decrease-quantity"
+        <input
+          id="updates_large_40011044061390:469e415a9876580631ba91613d28e859"
+          class="cart__qty-input"
+          type="number"
+          name="updates[]"
           value={prevQuantity}
+          min="0"
+          pattern="[0-9]*"
+          data-quantity-input=""
+          data-quantity-item="1"
+          data-quantity-input-desktop=""
+          data-role="product-quantity-desktop"
         >
-          <span>&#8722; </span>
-        </button>
+          {' '}
+        </input>
       </CartLineUpdateButton>
       &nbsp;
       <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
