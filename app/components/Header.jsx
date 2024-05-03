@@ -87,7 +87,7 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
 function HeaderCtas({isLoggedIn, cart}) {
   return (
     <nav className="header-ctas" role="navigation">
-      {screen.width < 600 && <HeaderMenuMobileToggle />}
+      <HeaderMenuMobileToggle />
 
       <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
         <Suspense fallback="Sign in">
