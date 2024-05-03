@@ -87,7 +87,8 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
 function HeaderCtas({isLoggedIn, cart}) {
   return (
     <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
+      {screen.width < 600 && <HeaderMenuMobileToggle />}
+
       <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
         <Suspense fallback="Sign in">
           <Await resolve={isLoggedIn} errorElement="Sign in">
@@ -110,7 +111,11 @@ function HeaderMenuMobileToggle() {
 }
 
 function SearchToggle() {
-  return <a href="#search-aside">Search</a>;
+  return (
+    <a className="search-toggle" href="#search-aside">
+      Search
+    </a>
+  );
 }
 
 /**

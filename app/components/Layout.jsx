@@ -55,7 +55,7 @@ function SearchAside() {
           {({fetchResults, inputRef}) => (
             <div>
               <input
-                name="q"
+                name="q search-form"
                 onChange={fetchResults}
                 onFocus={fetchResults}
                 placeholder="Search"
