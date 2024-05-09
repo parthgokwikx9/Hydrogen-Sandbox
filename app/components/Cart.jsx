@@ -181,7 +181,7 @@ function CartLineRemoveButton({lineIds}) {
  */
 function CartLineQuantity({line}) {
   if (!line || typeof line?.quantity === 'undefined') return null;
-  const {id: lineId, quantity} = line;
+  let {id: lineId, quantity} = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
@@ -189,9 +189,14 @@ function CartLineQuantity({line}) {
     <div className="cart-line-quantity">
       <small>Quantity: {quantity} &nbsp;&nbsp;</small>
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
-        <input class="cart__qty-input" type="number" value={prevQuantity}>
-          {' '}
-        </input>
+        <input
+          className="cart__qty-input"
+          type="number"
+          // value={quantity}
+          onChange={(e) => (quantity = e.target.value)}
+          // onKeyUp={(e) => }
+          // onInput={(e) => console.log('input', e)}
+        ></input>
       </CartLineUpdateButton>
       &nbsp;
       <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
