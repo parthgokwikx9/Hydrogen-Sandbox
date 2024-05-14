@@ -17,7 +17,7 @@ export function Header({header, isLoggedIn, cart}) {
         viewport="desktop"
         primaryDomainUrl={header.shop.primaryDomain.url}
       />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} viewport="desktop" />
     </header>
   );
 }
@@ -40,19 +40,21 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
     }
   }
 
+  if (viewport === 'mobile') {
+    return <></>;
+  }
+
   return (
     <nav className={className} role="navigation">
-      {viewport === 'mobile' && (
-        <NavLink
-          end
-          onClick={closeAside}
-          prefetch="intent"
-          style={activeLinkStyle}
-          to="/"
-        >
-          Home
-        </NavLink>
-      )}
+      <NavLink
+        end
+        onClick={closeAside}
+        prefetch="intent"
+        style={activeLinkStyle}
+        to="/"
+      >
+        Home
+      </NavLink>
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
         if (!item.url) return null;
 
@@ -84,10 +86,10 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
 /**
  * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>}
  */
-function HeaderCtas({isLoggedIn, cart}) {
+function HeaderCtas({isLoggedIn, cart, viewport}) {
   return (
     <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
+      {viewport === 'mobile' && <HeaderMenuMobileToggle />}
 
       <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
         <Suspense fallback="Sign in">
@@ -113,8 +115,8 @@ function HeaderMenuMobileToggle() {
 
 function SearchToggle() {
   return (
-    <a className="search-toggle" href="#search-aside">
-      Search
+    <a href="#search-aside">
+      <button className="search-toggle">Search</button>
     </a>
   );
 }

@@ -80,7 +80,7 @@ function RecommendedProducts({products}) {
                     aspectRatio="1/1"
                     sizes="(min-width: 45em) 20vw, 50vw"
                   />
-                  <h4>{product.title}</h4>
+                  <span>{product.title}</span>
                   <small>
                     <Money data={product.priceRange.minVariantPrice} />
                   </small>
