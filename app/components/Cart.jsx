@@ -2,6 +2,8 @@ import {CartForm, Image, Money} from '@shopify/hydrogen';
 import {Link} from '@remix-run/react';
 import {useVariantUrl} from '~/lib/variants';
 import {GokwikButton} from '~/gokwik/GokwikButton';
+import {useState} from 'react';
+import {useRef} from 'react';
 
 /**
  * @param {CartMainProps}
@@ -182,28 +184,32 @@ function CartLineRemoveButton({lineIds}) {
 function CartLineQuantity({line}) {
   if (!line || typeof line?.quantity === 'undefined') return null;
   let {id: lineId, quantity} = line;
-  const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
-  const nextQuantity = Number((quantity + 1).toFixed(0));
+  const [itemQuantity, setQuantity] = useState(quantity);
+  const quantityRef = useRef(null);
 
   return (
     <div className="cart-line-quantity">
-      <small>Quantity: {quantity} &nbsp;&nbsp;</small>
-      <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
-        <input
-          className="cart__qty-input"
-          type="number"
-          // value={quantity}
-          onChange={(e) => (quantity = e.target.value)}
-          // onKeyUp={(e) => }
-          // onInput={(e) => console.log('input', e)}
-        ></input>
-      </CartLineUpdateButton>
-      &nbsp;
-      <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
+      <input
+        className="cart__qty-input"
+        value={itemQuantity}
+        name="update"
+        style={{width: '50px'}}
+        onChange={(e) => {
+          setQuantity(+e.target.value);
+          if (quantity > 0) {
+            setTimeout(() => {
+              updateQuantity(quantityRef);
+            }, 200);
+          }
+        }}
+      ></input>
+      <CartLineUpdateButton lines={[{id: lineId, quantity: itemQuantity}]}>
         <button
+          ref={quantityRef}
+          style={{display: 'none'}}
           aria-label="Increase quantity"
           name="increase-quantity"
-          value={nextQuantity}
+          value={itemQuantity}
         >
           <span>&#43;</span>
         </button>
@@ -214,6 +220,9 @@ function CartLineQuantity({line}) {
   );
 }
 
+const updateQuantity = (quantityRef) => {
+  quantityRef.current.click();
+};
 /**
  * @param {{
  *   line: CartLine;

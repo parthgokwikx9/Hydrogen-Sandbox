@@ -10,6 +10,7 @@ import {
 } from '@shopify/hydrogen';
 import {getVariantUrl} from '~/lib/variants';
 import {GokwikButton} from '~/gokwik/GokwikButton';
+import {useState} from 'react';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -220,6 +221,7 @@ function ProductPrice({selectedVariant}) {
  * }}
  */
 function ProductForm({product, selectedVariant, variants}) {
+  const [quantity, setQuantity] = useState(1);
   return (
     <div className="product-form">
       <VariantSelector
@@ -230,6 +232,13 @@ function ProductForm({product, selectedVariant, variants}) {
         {({option}) => <ProductOptions key={option.name} option={option} />}
       </VariantSelector>
       <br />
+      <input
+        type="number"
+        name="update"
+        className="cart__qty"
+        value={quantity}
+        onChange={(e) => setQuantity(e.target.value)}
+      />
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
@@ -240,7 +249,7 @@ function ProductForm({product, selectedVariant, variants}) {
             ? [
                 {
                   merchandiseId: selectedVariant.id,
-                  quantity: 1,
+                  quantity: +quantity,
                 },
               ]
             : []
