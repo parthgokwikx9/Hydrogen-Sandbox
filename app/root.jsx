@@ -160,8 +160,8 @@ export function ErrorBoundary() {
           </div>
         </Layout>
         <ScrollRestoration nonce={nonce} />
-        <Scripts nonce={nonce} />
-        <script defer src="https://sandbox.pdp.gokwik.co/kwikpass/plugin/build/kp-custom-merchant.js"></script>
+        <Scripts nonce={nonce} />     
+         <script defer src="https://sandbox.pdp.gokwik.co/kwikpass/plugin/build/kp-custom-merchant.js"></script>  
       </body>
     </html>
   );
