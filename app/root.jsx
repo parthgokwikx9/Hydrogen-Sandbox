@@ -143,7 +143,7 @@ export function ErrorBoundary() {
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />        
         <Meta />
         <Links />
       </head>
@@ -161,6 +161,7 @@ export function ErrorBoundary() {
         </Layout>
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
+        <script defer src="https://sandbox.pdp.gokwik.co/kwikpass/plugin/build/kp-custom-merchant.js"></script>
       </body>
     </html>
   );

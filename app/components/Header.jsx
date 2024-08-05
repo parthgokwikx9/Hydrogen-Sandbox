@@ -1,6 +1,7 @@
 import {Await, NavLink} from '@remix-run/react';
 import {Suspense} from 'react';
 import {useRootLoaderData} from '~/root';
+import KwikpassSSOButton from './KwikpassSSOButton';
 
 /**
  * @param {HeaderProps}
@@ -18,6 +19,7 @@ export function Header({header, isLoggedIn, cart}) {
         primaryDomainUrl={header.shop.primaryDomain.url}
       />
       <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} viewport="desktop" />
+      <KwikpassSSOButton title={'SSO Button'} />
     </header>
   );
 }
