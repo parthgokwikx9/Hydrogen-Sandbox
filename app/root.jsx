@@ -105,6 +105,15 @@ export default function App() {
   const nonce = useNonce();
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
+  const win = (window);
+win.merchantInfo = {
+  mid: '19g6jle2d5p3n',
+  env: 'sandbox',
+  storefrontAccessToken: '35f46317841d6f44370c876c47b4016e',
+  shopifyGraphQlUrl: `https://sandbox-plus-gokwik.myshopify.com/api/2024-01/graphql.json`,
+};
+console.log(win.merchantInfo);
+
 
   return (
     <html lang="en">
