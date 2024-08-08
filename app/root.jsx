@@ -15,6 +15,8 @@ import favicon from './assets/favicon.svg';
 import resetStyles from './styles/reset.css?url';
 import appStyles from './styles/app.css?url';
 import {Layout} from '~/components/Layout';
+import React, { useEffect } from "react";
+
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -105,16 +107,19 @@ export default function App() {
   const nonce = useNonce();
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
-  const win = (window);
-win.merchantInfo = {
-  mid: '19g6jle2d5p3n',
-  env: 'sandbox',
-  storefrontAccessToken: '35f46317841d6f44370c876c47b4016e',
-  shopifyGraphQlUrl: `https://sandbox-plus-gokwik.myshopify.com/api/2024-01/graphql.json`,
-};
-console.log(win.merchantInfo);
+  useEffect(function mount() {
 
+    const win = window;
+    win.merchantInfo  = {
+      mid: '19g6jle2d5p3n',
+      env: 'sandbox',
+      storefrontAccessToken: '35f46317841d6f44370c876c47b4016e',
+      shopifyGraphQlUrl: `https://sandbox-plus-gokwik.myshopify.com/api/2024-01/graphql.json`,
+    };
+    console.log(win.merchantInfo);
+  });
 
+  
   return (
     <html lang="en">
       <head>
@@ -130,11 +135,12 @@ console.log(win.merchantInfo);
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
         <Scripts nonce={nonce} />     
-         <script defer src="https://sandbox.pdp.gokwik.co/kwikpass/plugin/build/kp-custom-merchant.js"></script>  
-         <script defer src="https://sandbox.pdp.gokwik.co/kwikpass/plugin/build/kp-custom-merchant.js"></script>  
-         <script defer src="https://sandbox.pdp.gokwik.co/kwikpass/plugin/build/kp-merchant-v2.js"></script>  
+         {/* <script defer src="https://sandbox.pdp.gokwik.co/kwikpass/plugin/build/kp-custom-merchant.js"></script>   */}
          <script defer src="https://sandbox.pdp.gokwik.co/kwikpass/storefront-core-functions.js"></script>  
          <script defer src="https://sandbox.pdp.gokwik.co/kwikpass/kwikpass-core-functions.js"></script>  
+         
+         <script defer src="https://sandbox.pdp.gokwik.co/kwikpass/plugin/build/kp-merchant-v2.js"></script>  
+         
       </body>
     </html>
   );
@@ -153,6 +159,7 @@ export function ErrorBoundary() {
   } else if (error instanceof Error) {
     errorMessage = error.message;
   }
+  
 
   return (
     <html lang="en">
