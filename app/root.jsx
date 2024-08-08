@@ -120,6 +120,12 @@ export default function App() {
         </Layout>
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
+        <Scripts nonce={nonce} />     
+         <script defer src="https://sandbox.pdp.gokwik.co/kwikpass/plugin/build/kp-custom-merchant.js"></script>  
+         <script defer src="https://sandbox.pdp.gokwik.co/kwikpass/plugin/build/kp-custom-merchant.js"></script>  
+         <script defer src="https://sandbox.pdp.gokwik.co/kwikpass/plugin/build/kp-merchant-v2.js"></script>  
+         <script defer src="https://sandbox.pdp.gokwik.co/kwikpass/storefront-core-functions.js"></script>  
+         <script defer src="https://sandbox.pdp.gokwik.co/kwikpass/kwikpass-core-functions.js"></script>  
       </body>
     </html>
   );
